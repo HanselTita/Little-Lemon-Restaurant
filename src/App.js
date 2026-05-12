@@ -1,11 +1,17 @@
 
 import './App.css';
+import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
+
 
 function App() {
   return (
-    <div className="App">
-     <h1>Welcome to my React App!</h1>
-    </div>
+    <react>
+    <Header/>
+    <Main/>
+    <Footer/>
+    </react>
   );
 }
 
