@@ -1,12 +1,13 @@
 import React from 'react'
 import Logo from '../assets/Logo.svg'
+import './Footer.css'
 
 function Footer() {
   return (
     <footer>
       <img src={Logo} alt="Little Lemon Logo" />
 
-      <div classname='footer-column'>
+      <div className='footer-column'>
         <h3>Doormat Navigation</h3>
         <ul>
           <li><a href="/">Home</a></li>
@@ -18,15 +19,15 @@ function Footer() {
         </ul>
       </div>
 
-      <div classname='footer-column'>
+      <div className='footer-column'>
         <h3>Contact</h3>
         <ul>
           <li><a href="tel:+1234567890">Phone: +1 (234) 567-890</a></li>
           <li><a href="mailto:info@littlelemon.com">Email: info@littlelemon.com</a></li>
         </ul>
-      </div>  
+      </div>
 
-      <div classname='footer-column'>
+      <div className='footer-column'>
         <h3>Social Media Links</h3>
         <ul>
           <li><a href="https://facebook.com/littlelemon" target="_blank" rel="noopener noreferrer">Facebook</a></li>
