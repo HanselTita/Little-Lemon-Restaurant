@@ -4,7 +4,10 @@ import './Main.css'
 
 import Rice from "../assets/jellof-rice.jpg";
 import Eru from "../assets/fufu-eru.jpg";
-import Fish from "../assets/katti-katti.jpg";
+import Katti from "../assets/katti-katti.jpg";
+
+import User1 from "../assets/user.jpg";
+
 
 function Main() {
   return (
@@ -89,12 +92,12 @@ function Main() {
 
 <div className="special-card">
 
-  <img src={Fish} alt="Katti Katti" />
+  <img src={Katti} alt="Katti Katti" />
 
   <div className="card-content">
 
     <div className="card-top">
-      <h3>Katti katti</h3>
+      <h3>Kati Kati</h3>
       <span>$350</span>
     </div>
     <p>
@@ -109,6 +112,80 @@ function Main() {
 </div>
 
   </section>
+
+   <section className="testimonials">
+
+<h2>Testimonials</h2>
+
+<div className="testimonials-cards">
+
+<div className="testimonial-card">
+
+  <h4>Rating</h4>
+
+  <img src={User1} alt="Customer" />
+
+  <h3>Username</h3>
+
+  <p>
+    Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit,
+    sed do eiusmod tempor.
+  </p>
+
+</div>
+
+<div className="testimonial-card">
+
+  <h4>Rating</h4>
+
+  <img src={User1} alt="Customer" />
+
+  <h3>Username</h3>
+
+  <p>
+    Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit,
+    sed do eiusmod tempor.
+  </p>
+
+</div>
+
+<div className="testimonial-card">
+
+  <h4>Rating</h4>
+
+  <img src={User1} alt="Customer" />
+
+  <h3>Username</h3>
+
+  <p>
+    Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit,
+    sed do eiusmod tempor.
+  </p>
+
+  </div>
+
+<div className="testimonial-card">
+
+  <h4>Rating</h4>
+
+  <img src={User1} alt="Customer" />
+
+  <h3>Username</h3>
+
+  <p>
+    Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit,
+    sed do eiusmod tempor.
+  </p>
+
+  </div>
+</div>
+
+
+</section>
 
 </main>
   )
