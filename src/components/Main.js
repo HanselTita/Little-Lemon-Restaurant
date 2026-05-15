@@ -8,6 +8,9 @@ import Katti from "../assets/katti-katti.jpg";
 
 import User1 from "../assets/user.jpg";
 
+import Dish1 from "../assets/pic4.jpg";
+import Dish2 from "../assets/pic5.jpg";
+
 
 function Main() {
   return (
@@ -46,7 +49,7 @@ function Main() {
 
 <div className="specials-cards">
 
-<   div className="special-card">
+<div className="special-card">
 
      <img src={Rice} alt="Jellof Rice" />
 
@@ -183,7 +186,39 @@ function Main() {
 
   </div>
 </div>
+</section>
 
+<section className="about">
+
+  <div className="about-text">
+
+  <h2>Little Lemon</h2>
+
+  <h3>Chicago</h3>
+
+  <p>
+    Journey across Africa without leaving your seat.
+    At Little Lemon, every dish tells a story —
+    from bold fragrant tagines to soulful Jollof rice.
+  </p>
+
+</div>
+
+<div className="about-images">
+
+  <img
+  className="about-img1"
+  src={Dish2}
+  alt="African cuisine"
+/>
+
+<img
+  className="about-img2"
+  src={Dish1}
+  alt="African cuisine"
+/>
+
+</div>
 
 </section>
 
