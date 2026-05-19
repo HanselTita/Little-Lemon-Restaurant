@@ -2,7 +2,10 @@ import React from 'react'
 
 function Order() {
   return (
-    <div>Order Online</div>
+    <div>
+      <h1>Order Online</h1>
+      <p>Place your order now!</p>
+    </div>
   )
 }
 

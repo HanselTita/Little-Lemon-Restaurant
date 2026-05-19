@@ -2,7 +2,10 @@ import React from 'react'
 
 function Reservations() {
   return (
-    <div>Reservations</div>
+    <div>
+      <h1>Make a Reservation</h1>
+      <p>Book your table with us!</p>
+    </div>
   )
 }
 
