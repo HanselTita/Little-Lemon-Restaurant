@@ -32,6 +32,7 @@ button {
   position: relative;
 }
 
+
 .hero-content {
   width: 50%;
 }
@@ -157,6 +158,7 @@ button {
   text-align: center;
   font-family: 'Markazi Text', serif;
   font-size: 48px;
+  color: #F4CE14;
   margin-bottom: 40px;
 }
 

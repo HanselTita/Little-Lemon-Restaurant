@@ -28,8 +28,10 @@ function Main() {
     focused on traditional recipes served with a modern twist
     </p>
 
-    <button>Reserve a Table</button>
-    </div>
+    <button className="button" onClick={() => window.location.href = '/reservations'}>
+      Reserve a Table
+    </button>
+  </div>
 
     <div className="hero-image">
     <img src={HeroImage} alt="Little Lemon Food" />
@@ -43,7 +45,7 @@ function Main() {
 
     <h2>This Weeks Specials!</h2>
  
-  <button>Online Menu</button>
+  <button className="button">Online Menu</button>
 
 </div>
 
