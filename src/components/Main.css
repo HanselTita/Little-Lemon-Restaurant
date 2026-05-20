@@ -420,6 +420,41 @@ button {
   text-decoration: underline;
 }
 
+/* ========================================= */
+/* ============ Reservation Confirmation ========== */
+
+.confirmation-page {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.confirmation-success {
+  background-color: #495E57;
+  color: white;
+  max-width: 700px;
+  width: 100%;
+  padding: 80px 40px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.confirmation-success h1 {
+  font-family: 'Markazi Text', serif;
+  font-size: 72px;
+  color: #F4CE14;
+  margin-bottom: 30px;
+}
+
+.confirmation-success p {
+  font-size: 20px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  font-family: 'Karla', sans-serif;
+}
 
 /* ========================================= */
 /* ============ RESPONSIVE DESIGN ========== */
@@ -586,5 +621,17 @@ button {
   .confirmation-details p {
     font-size: 18px;
   }
+
+  .confirmation-success {
+  padding: 60px 20px;
+}
+
+.confirmation-success h1 {
+  font-size: 48px;
+}
+
+.confirmation-success p {
+  font-size: 18px;
+}
 
 }
