@@ -1,6 +1,7 @@
 import React from 'react'
 import HeroImage from '../assets/pic1.jpg'
 import './Main.css'
+import { useNavigate } from 'react-router-dom'
 
 import Rice from "../assets/jellof-rice.jpg";
 import Eru from "../assets/fufu-eru.jpg";
@@ -12,7 +13,12 @@ import Dish1 from "../assets/pic4.jpg";
 import Dish2 from "../assets/pic5.jpg";
 
 
+
+
 function Main() {
+
+  const navigate = useNavigate()
+
   return (
 <main>
 
@@ -28,9 +34,9 @@ function Main() {
     focused on traditional recipes served with a modern twist
     </p>
 
-    <button className="button" onClick={() => window.location.href = '/reservations'}>
-      Reserve a Table
-    </button>
+ <button className="button" onClick={() => navigate('/reservations')}>
+  Reserve a Table
+</button>
   </div>
 
     <div className="hero-image">

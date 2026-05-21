@@ -6,7 +6,6 @@ import BookingForm from '../components/BookingForm'
 
 function Reservations() {
 
-
   return (
 
     <main>

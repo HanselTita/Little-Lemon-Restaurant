@@ -1,7 +1,5 @@
-import {Route, Routes,} from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
-
 import Footer from './components/Footer';
 import Home from './pages/Home'
 import About from './pages/About'
@@ -10,6 +8,8 @@ import Reservations from './pages/Reservations'
 import Order from './pages/Order'
 import Login from './pages/Login'
 import ReservationConfirmed from './pages/ReservationConfirmed'
+import { Route, Routes } from 'react-router-dom';
+
 
 
 

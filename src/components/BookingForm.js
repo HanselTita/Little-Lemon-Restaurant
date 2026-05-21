@@ -1,8 +1,25 @@
-import React, {useState} from 'react'
+import React, { useState, useReducer, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../components/Main.css'
 import ReservationImage from '../assets/pic6.jpg'
 import emailjs from '@emailjs/browser'
+import { fetchAPI, submitAPI } from '../api'
+
+// Function to initialize available times based on today's date
+const initializeTimes = () => {
+  const today = new Date()
+  return fetchAPI(today)
+}
+
+// Reducer function to update available times when date changes
+const updateTimes = (state, action) => {
+  switch(action.type) {
+    case 'UPDATE_TIMES':
+      return fetchAPI(new Date(action.date))
+    default:
+      return state
+  }
+}
 
 
 function BookingForm() {
@@ -12,13 +29,19 @@ const [title, setTitle] = useState('Mr.')
 const [fullName, setFullName] = useState('')
 const [phone, setPhone] = useState('')
 const [date, setDate] = useState('')
-const [time, setTime] = useState('15:00')
+const [time, setTime] = useState('')
 const [guests, setGuests] = useState(1)
 const [occasion, setOccasion] = useState('None')
 const [specialRequests, setSpecialRequests] = useState('')
 
+
+
+// State and dispatch for available times
+const [availableTimes, dispatch] = useReducer(updateTimes,[],initializeTimes)
+
+
 // Available times for the time dropdown
-const [availableTimes] = useState([ '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'])
+//const [availableTimes] = useState([ '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'])
 
 // State variable to control modal visibility
 const [showModal, setShowModal] = useState(false)
@@ -34,55 +57,92 @@ const handleSubmit = (e) =>{
 
 
   //emailjs-com
-    const sendReservationEmail = () => {
-      setLoading(true)
-    const templateParams = {
-      customer_name: fullName,
-      customer_phone: phone,
-      reservation_date: date,
-      reservation_time: time,
-      guests: guests,
-      occasion: occasion,
-      special_request: specialRequests,
-    };
-  
-    emailjs.send(
-      'service_brvqs77',
-      'template_bj1i42b',
-      templateParams,
-      'T7lP15S2xy1L8981v'
-    )
-    .then(() => {
+   const sendReservationEmail = () => {
 
-  // Close modal
-  setShowModal(false);
+  setLoading(true)
 
-  // Clear form fields
-  setTitle('Mr.');
-  setFullName('');
-  setPhone('');
-  setDate('');
-  setTime('15:00');
-  setGuests(1);
-  setOccasion('None');
-  setSpecialRequests('');
+  const templateParams = {
+    customer_name: fullName,
+    customer_phone: phone,
+    reservation_date: date,
+    reservation_time: time,
+    guests: guests,
+    occasion: occasion,
+    special_request: specialRequests,
+  }
 
-// Reset loading state
-  setLoading(false)
-  
-  // Redirect user
-  navigate('/reservation-confirmed')
+  // Form data for API
+  const formData = {
+    title,
+    fullName,
+    phone,
+    date,
+    time,
+    guests,
+    occasion,
+    specialRequests
+  }
 
-})
-    .catch((error) => {
-      setLoading(false)
-      console.log(error);
-      alert('Failed to send reservation.');
-    });
-  };
+  // Submit reservation to API
+  const success = submitAPI(formData)
+
+  if (!success) {
+    setLoading(false)
+    alert('Reservation failed')
+    return
+  }
+
+  // Send email
+  emailjs.send(
+    'service_brvqs77',
+    'template_bj1i42b',
+    templateParams,
+    'T7lP15S2xy1L8981v'
+  )
+
+  .then(() => {
+
+    // Close modal
+    setShowModal(false)
+
+    // Reset form
+    setTitle('Mr.')
+    setFullName('')
+    setPhone('')
+    setDate('')
+    setTime('15:00')
+    setGuests(1)
+    setOccasion('None')
+    setSpecialRequests('')
+
+    // Stop loading
+    setLoading(false)
+
+    // Redirect
+    navigate('/reservation-confirmed')
+
+  })
+
+  .catch((error) => {
+
+    console.log(error)
+
+    setLoading(false)
+
+    alert('Failed to send reservation email.')
+
+  })
+}
 
   // State variable to indicate loading state during email sending
   const [loading, setLoading] = useState(false)
+
+ // Set initial time to first available time when availableTimes changes
+useEffect(() => {
+  if (availableTimes.length > 0) {
+    setTime(availableTimes[0])
+  }
+}, [availableTimes])
 
 
   return (
@@ -110,13 +170,20 @@ const handleSubmit = (e) =>{
       </fieldset>
 
             <label htmlFor="full-name"> Full Name</label>
-            <input type="text" id="full-name" placeholder="John Doe" value={fullName} onChange={(e) => setFullName(e.target.value)}  required/>
+            <input type="text"   aria-label="Full Name" id="full-name" placeholder="John Doe" value={fullName} onChange={(e) => setFullName(e.target.value)}  required/>
 
             <label htmlFor="phone">Phone Number</label>
-            <input type="tel" id="phone" placeholder="+1 234 567 890" value={phone} onChange={(e) => setPhone(e.target.value)} required/>
+            <input type="tel"   aria-label="Phone Number" id="phone" placeholder="+1 234 567 890" value={phone} onChange={(e) => setPhone(e.target.value)} required/>
 
             <label htmlFor="res-date">Choose date</label>
-            <input type="date" id="res-date" value={date} onChange={(e) => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]} required/>
+            <input type="date"   aria-label="Reservation Date" id="res-date" value={date} onChange={(e) => {
+            setDate(e.target.value)
+               dispatch({
+                  type: 'UPDATE_TIMES',
+                       date: e.target.value
+                        })
+                    }}
+               min={new Date().toISOString().split('T')[0]} required />
 
             <label htmlFor="res-time">Choose time</label>
             <select id="res-time" value={time} onChange={(e) => setTime(e.target.value)} required>
@@ -129,7 +196,7 @@ const handleSubmit = (e) =>{
             </select>
 
             <label htmlFor="guests">Number of guests</label>
-           <input  type="number" id="guests" value={guests} onChange={(e) => setGuests(e.target.value)}  placeholder="1" min="1" max="10" required/>
+           <input  type="number"   aria-label="Number of Guests" id="guests" value={guests} onChange={(e) => setGuests(Number(e.target.value))}  placeholder="1" min="1" max="10" required/>
 
             <label htmlFor="occasion"> Occasion</label>
             <select id="occasion" value={occasion} onChange={(e) => setOccasion(e.target.value)}>
@@ -142,7 +209,7 @@ const handleSubmit = (e) =>{
             <label htmlFor="special-requests">Special Requests</label>
             <textarea id="special-requests" placeholder="Any allergies, seating preferences, birthday setup, etc." rows="5" value={specialRequests} onChange={(e) =>setSpecialRequests(e.target.value)}/>
 
-            <button type="submit"> Make Your Reservation</button>
+            <button type="submit" disabled={loading}>{loading ? 'Processing...' : 'Make Your Reservation'}</button>
           </form>
         </div>
 
@@ -152,8 +219,8 @@ const handleSubmit = (e) =>{
 
         { showModal && (
 
-        <div className="modal-overlay">
-        <div className="confirmation-modal">
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+        <div className="confirmation-modal" onClick={(e) => e.stopPropagation()}>
 
         <h2> Please Confirm Reservation</h2>
 
