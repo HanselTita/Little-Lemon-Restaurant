@@ -67,6 +67,9 @@ const handleSubmit = (e) =>{
   setOccasion('None');
   setSpecialRequests('');
 
+// Reset loading state
+  setLoading(false)
+  
   // Redirect user
   navigate('/reservation-confirmed')
 
