@@ -6,13 +6,13 @@ import emailjs from '@emailjs/browser'
 import { fetchAPI, submitAPI } from '../api'
 
 // Function to initialize available times based on today's date
-const initializeTimes = () => {
+export const initializeTimes = () => {
   const today = new Date()
   return fetchAPI(today)
 }
 
 // Reducer function to update available times when date changes
-const updateTimes = (state, action) => {
+export const updateTimes = (state, action) => {
   switch(action.type) {
     case 'UPDATE_TIMES':
       return fetchAPI(new Date(action.date))
@@ -28,7 +28,8 @@ function BookingForm() {
 const [title, setTitle] = useState('Mr.')
 const [fullName, setFullName] = useState('')
 const [phone, setPhone] = useState('')
-const [date, setDate] = useState('')
+const today = new Date().toISOString().split('T')[0]
+const [date, setDate] = useState(today)
 const [time, setTime] = useState('')
 const [guests, setGuests] = useState(1)
 const [occasion, setOccasion] = useState('None')
@@ -109,7 +110,7 @@ const handleSubmit = (e) =>{
     setTitle('Mr.')
     setFullName('')
     setPhone('')
-    setDate('')
+    setDate(today)
     setTime('15:00')
     setGuests(1)
     setOccasion('None')
