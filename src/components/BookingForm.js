@@ -145,6 +145,16 @@ useEffect(() => {
   }
 }, [availableTimes])
 
+// Form validation logic
+const isFormValid =
+  fullName.trim().length >= 3 &&
+  /^[A-Za-z\s]+$/.test(fullName) &&
+  /^[0-9+\s]+$/.test(phone) &&
+  phone.length >= 8 &&
+  date !== '' &&
+  time !== '' &&
+  guests >= 1 &&
+  guests <= 10
 
   return (
     <section className="reservation-section">
@@ -171,11 +181,12 @@ useEffect(() => {
       </fieldset>
 
             <label htmlFor="full-name"> Full Name</label>
-            <input type="text"   aria-label="Full Name" id="full-name" placeholder="John Doe" value={fullName} onChange={(e) => setFullName(e.target.value)}  required/>
+            <input type="text"   aria-label="Full Name" id="full-name" placeholder="John Doe" value={fullName} onChange={(e) => setFullName(e.target.value)} minLength="3" pattern="[A-Za-z\s]+" title="Name should contain only letters" required/>
+            {fullName && fullName.length < 3 && ( <p className="error"> Name must be at least 3 characters</p>)}
 
             <label htmlFor="phone">Phone Number</label>
-            <input type="tel"   aria-label="Phone Number" id="phone" placeholder="+1 234 567 890" value={phone} onChange={(e) => setPhone(e.target.value)} required/>
-
+            <input type="tel"   aria-label="Phone Number" id="phone" placeholder="+1 234 567 890" value={phone} onChange={(e) => setPhone(e.target.value)} pattern="[0-9+\s]+" minLength="8" maxLength="15" title="Enter a valid phone number" required/>
+              {phone && phone.length < 8 && ( <p className="error"> Phone number must be at least 8 digits</p>)}
             <label htmlFor="res-date">Choose date</label>
             <input type="date"   aria-label="Reservation Date" id="res-date" value={date} onChange={(e) => {
             setDate(e.target.value)
@@ -208,9 +219,9 @@ useEffect(() => {
             </select>
 
             <label htmlFor="special-requests">Special Requests</label>
-            <textarea id="special-requests" placeholder="Any allergies, seating preferences, birthday setup, etc." rows="5" value={specialRequests} onChange={(e) =>setSpecialRequests(e.target.value)}/>
+            <textarea id="special-requests" placeholder="Any allergies, seating preferences, birthday setup, etc." rows="5" value={specialRequests} onChange={(e) =>setSpecialRequests(e.target.value)} maxLength="200"/>
 
-            <button type="submit" disabled={loading}>{loading ? 'Processing...' : 'Make Your Reservation'}</button>
+            <button type="submit" disabled={!isFormValid}>{loading ? 'Processing...' : 'Make Your Reservation'}</button>
           </form>
         </div>
 
