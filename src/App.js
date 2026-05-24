@@ -18,7 +18,6 @@ function App() {
     <>
       <Nav/>
          <Routes>
-
            <Route path="/" element={<Home />} />
            <Route path="/about" element={<About />} />
            <Route path="/menu" element={<Menu />} />
@@ -26,7 +25,6 @@ function App() {
            <Route path="/order" element={<Order />} />
            <Route path="/login" element={<Login />} />
            <Route path="/reservation-confirmed" element={<ReservationConfirmed />}/>
-
         </Routes>
       <Footer/>
     </>

@@ -20,7 +20,7 @@ function Main() {
   const navigate = useNavigate()
 
   return (
-<main>
+<main role="main">
 
 <section className="hero">
 

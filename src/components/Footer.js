@@ -4,10 +4,10 @@ import './Footer.css'
 
 function Footer() {
   return (
-    <footer>
+    <footer role="contentinfo">
       <img src={Logo} alt="Little Lemon Logo" />
 
-      <div className='footer-column'>
+      <div className='footer-column' role="region" aria-label="Doormat Navigation">
         <h3>Doormat Navigation</h3>
         <ul>
           <li><a href="/">Home</a></li>

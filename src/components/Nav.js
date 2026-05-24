@@ -7,7 +7,7 @@ function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className='navbar'>
+    <nav className='navbar' aria-label="Main Navigation" role="navigation">
       
       <div className='logo'>
       <img src={Logo} alt="Little Lemon Logo" />
@@ -16,12 +16,12 @@ function Nav() {
   ☰
 </div>
       <ul className={menuOpen ? 'nav-links active' : 'nav-links'}>
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/about">About</NavLink></li>
-        <li><NavLink to="/menu">Menu</NavLink></li>
-        <li><NavLink to="/reservations">Reservations</NavLink></li>
-        <li><NavLink to="/order">Order Online</NavLink></li>
-        <li><NavLink to="/login">Login</NavLink></li>
+        <li><NavLink to="/"   aria-label="Go to Home">Home</NavLink></li>
+        <li><NavLink to="/about" aria-label="Learn more about the restaurant">About</NavLink></li>
+        <li><NavLink to="/menu" aria-label="View the restaurant menu">Menu</NavLink></li>
+        <li><NavLink to="/reservations" aria-label="Make a reservation">Reservations</NavLink></li>
+        <li><NavLink to="/order" aria-label="Order food online">Order Online</NavLink></li>
+        <li><NavLink to="/login" aria-label="Log in to your account">Login</NavLink></li>
       </ul>
       </nav>
   )

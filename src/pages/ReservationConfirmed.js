@@ -7,7 +7,7 @@ function ReservationConfirmed() {
 
   return (
 
-    <main className="confirmation-page">
+    <main className="confirmation-page" aria-labelledby="confirmation-heading">
 
       <section className="confirmation-success">
         <h1>Reservation Confirmed!</h1>

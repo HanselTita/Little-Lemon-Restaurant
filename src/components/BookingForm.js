@@ -157,9 +157,9 @@ const isFormValid =
   guests <= 10
 
   return (
-    <section className="reservation-section">
+    <section className="reservation-section" aria-labelledby="reservation-heading">
 
-        <div className="reservation-form-container">
+        <main className="reservation-form-container">
 
           <form className="reservation-form"   onSubmit={handleSubmit}>
 
@@ -181,7 +181,7 @@ const isFormValid =
       </fieldset>
 
             <label htmlFor="full-name"> Full Name</label>
-            <input type="text"   aria-label="Full Name" id="full-name" placeholder="John Doe" value={fullName} onChange={(e) => setFullName(e.target.value)} minLength="3" pattern="[A-Za-z\s]+" title="Name should contain only letters" required/>
+            <input type="text"   aria-label="Full Name" id="full-name" placeholder="John Doe" value={fullName} onChange={(e) => setFullName(e.target.value)} minLength="3" pattern="[A-Za-z\s]+" title="Name should contain only letters" required />
             {fullName && fullName.length < 3 && ( <p className="error"> Name must be at least 3 characters</p>)}
 
             <label htmlFor="phone">Phone Number</label>
@@ -198,7 +198,7 @@ const isFormValid =
                min={new Date().toISOString().split('T')[0]} required />
 
             <label htmlFor="res-time">Choose time</label>
-            <select id="res-time" value={time} onChange={(e) => setTime(e.target.value)} required>
+            <select id="res-time" value={time} onChange={(e) => setTime(e.target.value)} required  aria-required="true">
              {  availableTimes.map((availableTime) => (
               <option key={availableTime} value={availableTime}>
                 {availableTime}
@@ -208,10 +208,10 @@ const isFormValid =
             </select>
 
             <label htmlFor="guests">Number of guests</label>
-           <input  type="number"   aria-label="Number of Guests" id="guests" value={guests} onChange={(e) => setGuests(Number(e.target.value))}  placeholder="1" min="1" max="10" required/>
+           <input  type="number"   aria-label="Number of Guests" id="guests" value={guests} onChange={(e) => setGuests(Number(e.target.value))}  placeholder="1" min="1" max="10" required  aria-required="true"/>
 
             <label htmlFor="occasion"> Occasion</label>
-            <select id="occasion" value={occasion} onChange={(e) => setOccasion(e.target.value)}>
+            <select id="occasion" value={occasion} onChange={(e) => setOccasion(e.target.value)}  aria-required="true">
               <option>None</option>
               <option>Birthday</option>
               <option>Anniversary</option>
@@ -219,11 +219,11 @@ const isFormValid =
             </select>
 
             <label htmlFor="special-requests">Special Requests</label>
-            <textarea id="special-requests" placeholder="Any allergies, seating preferences, birthday setup, etc." rows="5" value={specialRequests} onChange={(e) =>setSpecialRequests(e.target.value)} maxLength="200"/>
+            <textarea id="special-requests" placeholder="Any allergies, seating preferences, birthday setup, etc." rows="5" value={specialRequests} onChange={(e) =>setSpecialRequests(e.target.value)} maxLength="200" aria-required="true"/>
 
             <button type="submit" disabled={!isFormValid}>{loading ? 'Processing...' : 'Make Your Reservation'}</button>
           </form>
-        </div>
+        </main>
 
         <div className="reservation-image">
           <img src={ReservationImage} alt="Restaurant dining"/>
@@ -232,7 +232,7 @@ const isFormValid =
         { showModal && (
 
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
-        <div className="confirmation-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="confirmation-modal" onClick={(e) => e.stopPropagation()}  aria-live="assertive" role="dialog" aria-modal="true" aria-labelledby="confirmation-heading">
 
         <h2> Please Confirm Reservation</h2>
 
@@ -246,7 +246,9 @@ const isFormValid =
           <p><strong>Special Requests:</strong>{' '}{specialRequests || 'None'}</p>
         </div>
 
-        <button onClick={sendReservationEmail} disabled={loading}>{loading ? 'Sending...' : 'Confirm Reservation'}</button>
+        <button onClick={sendReservationEmail} disabled={loading} aria-label="Confirm Reservation">
+          {loading ? 'Sending...' : 'Confirm Reservation'}
+        </button>
 
          <p className="go-back" onClick={() => setShowModal(false)}> Go Back </p>
 
